@@ -2,51 +2,60 @@
   
   <input type="text"
     class="form-control my-2"
-    placeholder="Escriba su nombre"
+    placeholder="Escriba la tarea"
     v-model.trim="tarea.nombre"
     >
+  <div class="progress">
+  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+</div>
   <div class="form-check form-check-inline">
     <input
     type="checkbox"
     id="check-1"
     class="form-check-input"
     v-model="tarea.categorias"
-    value="Javascript"
+    value="Cocina"
     >
-    <label for="check-1" class="form-check-label"> Javascript</label>
+    <label for="check-1" class="form-check-label"> Cocina</label>
   </div>
+  
   <div class="form-check form-check-inline">
     <input
     type="checkbox"
     id="check-2"
     class="form-check-input"
     v-model="tarea.categorias"
-    value="Node"
+    value="Salon"
     >
-    <label for="check-2" class="form-check-label"> Node</label>
+    <label for="check-2" class="form-check-label"> Salon</label>
   </div>
+  
   <div class="form-check form-check-inline">
     <input
     type="checkbox"
     id="check-3"
     class="form-check-input"
     v-model="tarea.categorias"
-    value="Vue"
+    value="Baño"
     >
-    <label for="check-3" class="form-check-label">Vue</label>
+    <label for="check-3" class="form-check-label">Baño</label>
   </div>
+  
   <div class="form-check form-check-inline">
     <input
     type="checkbox"
     id="check-4"
     class="form-check-input"
     v-model="tarea.categorias"
-    value="Laravel"
+    value="Dormitorio"
     >
-    <label for="check-4" class="form-check-label"> Laravel</label>
+    <label for="check-4" class="form-check-label"> Dormitorio</label>
 
   </div>
-  <hr>
+  <div class="progress">
+  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+</div>
+  
 
   <div class="mt-2">
     <div class="form-check form-check-inline">
@@ -56,9 +65,9 @@
       id="radio-1"
       class="form-check-input"
       v-model="tarea.estado"
-      value="Junior"
+      value="Superficie"
       >
-      <label for="radio-1"> Principiante </label>
+      <label for="radio-1"> Superficie </label>
 
     </div>
 
@@ -69,23 +78,24 @@
       id="radio-2"
       class="form-check-input"
       v-model="tarea.estado"
-      value="Senior"
+      value="aFondo"
       >
-      <label for="radio-2"> Experto</label>
+      <label for="radio-2"> A fondo</label>
 
     </div>
 
     <div class="mt-2">
 
       <input 
-      type="number"
-      v-model.number="tarea.numero"
+      type="text"
+      v-model.trim="tarea.owner"
       >
     </div>
 
   </div>
   <hr>
   <button class="btn btn-primary btn-lg" type="submit" :disabled="bloquear">Enviar</button>
+  
 
 </template>
 

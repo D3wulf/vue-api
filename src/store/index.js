@@ -9,7 +9,7 @@ export default createStore({
             nombre: '',
             categorias: [],
             estado: '',
-            numero: 0
+            owner: ''
         },
         user: null
     },
@@ -39,6 +39,32 @@ export default createStore({
         }
     },
     actions: {
+        async cargarTodo({ commit }) {
+            try {
+                //recoger datos de firebase
+                const res = await fetch('https://vue-api-ed1d5-default-rtdb.europe-west1.firebasedatabase.app/tareas.json')
+                    //transformar en json
+                const dataDB = await res.json()
+                    //console.log(dataDB)
+                    //creamos una variable con un array vacio para llenarlo de datos
+                const arrayTareas = []
+                    //creamos un for para que los datos que hemos conseguido en el fetch, recorrerlos e ir añadiendolos
+                    // en el arraytareas
+                for (let id in dataDB) {
+                    //console.log(id)
+                    //console.log(dataDB[id])
+                    arrayTareas.push(dataDB[id])
+                }
+                //console.log(arrayTareas)
+                //Teniendo la info ya en arraytareas, la cargamos usando la mutacion, arraytareas seria el payload
+                commit('cargar', arrayTareas)
+
+
+            } catch (error) {
+                console.log(error)
+
+            }
+        },
         cerrarSesion({ commit }) {
             commit('setUser', null)
             router.push('/login')
@@ -49,6 +75,7 @@ export default createStore({
                 const res = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyA5sEQkMAnxcN2QvUtqfJu26582_uqKzw0', {
                     method: 'POST',
                     body: JSON.stringify({
+
                         email: usuario.email,
                         password: usuario.password,
                         returnSecureToken: true
@@ -108,6 +135,30 @@ export default createStore({
                 console.log(error)
             }
         },
+        async setTareas({ commit }, tarea) {
+            try {
+                const res = await fetch(`https://vue-api-ed1d5-default-rtdb.europe-west1.firebasedatabase.app/tareas/${tarea.id}.json`, {
+                    //como segundo parametro metemos un objeto que sera configuracion del fetch
+
+                    method: 'PUT',
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    //mandaremos el body y lo pasamos a json
+                    body: JSON.stringify(tarea)
+
+                })
+                const dataDB = await res.json()
+                console.log(dataDB)
+            } catch (error) {
+                console.log(error)
+            }
+            commit('set', tarea)
+        },
+        //=========================================================//
+        // AQUI EL setTareas CON ID // 
+        //=========================================================//
+        /*
         async setTareas({ commit, state }, tarea) {
             try {
                 const res = await fetch(`https://vue-api-ed1d5-default-rtdb.europe-west1.firebasedatabase.app/tareas/${state.user.localId}/${tarea.id}.json?auth=${state.user.idToken}`, {
@@ -125,7 +176,7 @@ export default createStore({
                 console.log(error)
             }
             commit('set', tarea)
-        },
+        },*/
         async deleteTareas({ commit, state }, id) {
             try {
                 await fetch(`https://vue-api-ed1d5-default-rtdb.europe-west1.firebasedatabase.app/tareas/${state.user.localId}/${id}.json?auth=${state.user.idToken}`, {
@@ -139,7 +190,23 @@ export default createStore({
         setTarea({ commit }, id) {
             commit('tarea', id)
         },
-        async updateTarea({ commit, state }, tarea) {
+        async updateTarea({ commit }, tarea) {
+            try {
+                const res = await fetch(`https://vue-api-ed1d5-default-rtdb.europe-west1.firebasedatabase.app/tareas/${tarea.id}.json`, {
+                    method: 'PATCH',
+                    body: JSON.stringify(tarea)
+                })
+                const dataDB = await res.json()
+                commit('update', dataDB)
+                router.push('/')
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        //=========================================================//
+        // AQUI EL UPDATE CON ID // 
+        //=========================================================//
+        /*async updateTarea({ commit, state }, tarea) {
             try {
                 const res = await fetch(`https://vue-api-ed1d5-default-rtdb.europe-west1.firebasedatabase.app/tareas/${state.user.localId}/${tarea.id}.json?auth=${state.user.idToken}`, {
                     method: 'PATCH',
@@ -151,7 +218,7 @@ export default createStore({
             } catch (error) {
                 console.log(error)
             }
-        }
+        }*/
     },
     getters: {
         usuarioAutenticado(state) {

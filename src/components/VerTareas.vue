@@ -1,5 +1,5 @@
 <template>
-<!--{{tareas}}-->
+<div class="contenedor">
   <table class="table">
         <thead>
             <tr>
@@ -8,7 +8,7 @@
             <th scope="col">Categorias</th>
             <th scope="col">Nivel</th>
             <th scope="col">Añadido por</th>
-            <th scope="col">Acción</th>
+            
             </tr>
         </thead>
         <tbody>
@@ -26,25 +26,12 @@
                 </td>
             <td>{{item.estado}}</td>
             <td>{{item.owner}}</td>
-            <td>
-                <button @click="deleteTareas(item.id)" class="btn btn-danger btn-sm"><img style="width: 25px; height: 25px" src="../assets/trash-alt-solid.svg"/>
-                </button>
-                <router-link 
-                class="btn btn-warning ml-2 btn-sm"
-                :to="{
-                    name:'Editar',
-                    params: {
-                        id:item.id
-                        }
-                    
-                    }">
-                <img style="width: 25px; height:25px" src="../assets/editar.svg"/>
-                </router-link>
-                </td>
+            
             </tr>
             
   </tbody>
 </table>
+</div>
 </template>
 
 <script>
@@ -53,10 +40,8 @@ import {mapState, mapActions} from 'vuex'
 export default {
     computed:{
         ...mapState(['tareas'])
-    },
-    methods: {
-        ...mapActions(['deleteTareas'])
     }
+    
 
 }
 </script>

@@ -43,7 +43,8 @@ export default {
     }
   },
   methods:{
-    ...mapActions(['setTareas','cargarLocalStorage']),
+                              //'cargarLocalStorage'
+    ...mapActions(['setTareas','cargarTodo']),
 
     procesarFormulario(){
       console.log(this.tarea)
@@ -70,7 +71,8 @@ export default {
     }
   },
   created(){
-      this.cargarLocalStorage()
+        this.cargarTodo()
+      //this.cargarLocalStorage()
     }
   
 }
@@ -80,6 +82,12 @@ export default {
  .contenedor{
    margin: 0 auto;
    width: 1200px;
+   background-color:lightgray;
+   padding: 10px;
+   text-align: center;
+   margin-top:50px ;
+   border-radius: 7px;
+   box-shadow: 5px 10px 18px #888888;
 
 }
 </style>

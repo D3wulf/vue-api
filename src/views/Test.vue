@@ -1,5 +1,11 @@
 <template>
-<h2>Aquí se testean cosas para aprender Vue</h2>
+<div class="contenedor">
+<h2>Tareas pendientes</h2>
+</div>
+
+<VerTareas/>
+
+
 
 
 
@@ -8,7 +14,7 @@
 
 <script>
 import Navbar from '../components/Navbar.vue'
-import ListaTareas from '../components/ListaTareas'
+import VerTareas from '../components/VerTareas'
 import {mapState, mapActions} from 'vuex'
 
 
@@ -16,20 +22,34 @@ export default {
 
   components: { 
       Navbar,
-    ListaTareas 
+    VerTareas 
     },
+  data(){
+    return{
 
-    methods:{
-    ...mapActions(['cargarLocalStorage']),
+      tarea:{
+        //agregamos Id
+        id:'',
+        nombre:'',
+        categorias: [],
+        estado:"",
+        numero:0
+      }
+    }
+  },
+  methods:{
+    ...mapActions(['cargarTodo']),
 
     
   },
   created(){
-      this.cargarLocalStorage()
+      this.cargarTodo()
     }
+  
+}
   
 
 
 
-}
+
 </script>

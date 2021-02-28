@@ -18,9 +18,9 @@
         Registro
     </router-link>
 
-    <router-link to="/test" class="btn btn-dark" v-if="!usuarioAutenticado"
+    <router-link to="/test" class="btn btn-dark" v-if="usuarioAutenticado"
       >
-        Página de testeo
+        Ver tareas
     </router-link>
     <button
     v-if ="usuarioAutenticado"
